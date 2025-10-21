@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  antrol-generate:
+    image: postgres:alpine
+    container_name: desafio1
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: banco
+    ports:
+      - '5432:5432'
+    restart: unless-stopped

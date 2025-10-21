@@ -1,21 +1,23 @@
 import { Customer } from '../../../../../modules/customer/entities/Customer';
-import { User as UserRaw } from '@prisma/client';
+import { Customer as CustomerRaw } from '@prisma/client';
 
 export class PrismaCustomerMapper {
   static toPrisma({
     createdAt,
     email,
     name,
-    password,
+    document,
+    phone,
     id,
     updatedAt,
-  }: Customer): UserRaw {
+  }: Customer): CustomerRaw {
     return {
       updatedAt,
       createdAt,
       email,
       name,
-      password,
+      document,
+      phone,
       id,
     };
   }
@@ -25,18 +27,20 @@ export class PrismaCustomerMapper {
     createdAt,
     email,
     name,
-    password,
+    document,
+    phone,
     updatedAt,
-  }: UserRaw): Customer {
+  }: CustomerRaw): Customer {
     return new Customer(
       {
         updatedAt,
         createdAt,
         email,
         name,
-        password,
-      },
-      id,
+        document,
+        phone,
+  },
+  id,
     );
   }
 }

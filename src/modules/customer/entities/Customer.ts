@@ -1,12 +1,9 @@
 import { randomUUID } from 'crypto';
 import { Replace } from 'src/types/replace';
+import { Customer as CustomerProps } from '@prisma/client';
 
-interface CustomerSchema {
-  name: string;
-  email: string;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
+interface CustomerSchema extends Omit<CustomerProps, 'id'> {
+  id?: string;
 }
 
 export class Customer {
@@ -45,12 +42,20 @@ export class Customer {
     this.props.email = email;
   }
 
-  get password(): string {
-    return this.props.password;
+  get document(): string {
+    return this.props.document;
   }
 
-  set password(password: string) {
-    this.props.password = password;
+  set document(document: string) {
+    this.props.document = document;
+  }
+
+  get phone(): string {
+    return this.props.phone;
+  }
+
+  set phone(phone: string) {
+    this.props.phone = phone;
   }
 
   get name(): string {

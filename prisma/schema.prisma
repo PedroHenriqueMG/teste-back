@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,22 +7,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id           String   @id
-  name         String
-  email        String   @unique
-  password     String
-  createdAt    DateTime
-  updatedAt    DateTime @updatedAt
-  note         Note[]
+enum PaymentType {
+  pix
+  creditCard
+  bankSlip
 }
 
-model Note {
-  id           String   @id
-  user         User     @relation(fields: [user_id], references: [id])
-  user_id      String   
-  title        String
-  description  String?
-  note         String
-  createdAt    DateTime @default(now())
+enum ChargeStatus {
+  pending
+  paid
+  failed
+  canceled
+}
+
+model Customer {
+  id                String       @id
+  name              String
+  document          String       @unique
+  email             String       @unique
+  phone             String
+  createdAt         DateTime
+  updatedAt         DateTime     @updatedAt
+  note              Charge[]
+}
+
+model Charge {
+  id                String       @id
+  custumer          Customer     @relation(fields: [custumer_id], references: [id])
+  custumer_id       String 
+  value             Decimal
+  coin              String
+  paymentType       PaymentType
+  status            ChargeStatus  
+  createdAt         DateTime
+  updatedAt         DateTime     @updatedAt
 }

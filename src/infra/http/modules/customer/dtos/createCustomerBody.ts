@@ -18,7 +18,11 @@ export class CreateCustomerBody {
 
   @IsStringCustom()
   @IsNotEmptyCustom()
-  @MinLengthCustom(6)
   @ApiProperty()
-  password: string;
+  document: string;
+
+  @IsStringCustom()
+  @IsNotEmptyCustom()
+  @ApiProperty()
+  phone: string;
 }

@@ -39,8 +39,8 @@ export class PrismaCustomerMapper {
         name,
         document,
         phone,
-  },
-  id,
+      },
+      id,
     );
   }
 }

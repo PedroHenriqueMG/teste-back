@@ -10,6 +10,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: true,
   });
+  
+  app.setGlobalPrefix('api');
+  
   app.useGlobalPipes(
     new ValidationPipe({
       exceptionFactory(errors: ValidationError[]) {
@@ -26,9 +29,9 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup('api/docs', app, document);
 
-  await app.listen(3333);
+  await app.listen(8080);
 }
 
 bootstrap();

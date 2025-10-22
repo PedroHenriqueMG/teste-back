@@ -1,11 +1,11 @@
 import { HttpStatus } from '@nestjs/common';
 import { AppException } from 'src/exceptions/appException';
 
-export class UserNotFoundException extends AppException {
+export class CustomerNotFoundException extends AppException {
   constructor() {
     super({
-      message: 'Usuário não encontrado',
-      status: HttpStatus.CONFLICT,
+      message: 'Cliente não encontrado',
+      status: HttpStatus.NOT_FOUND,
     });
   }
 }

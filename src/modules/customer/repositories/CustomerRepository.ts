@@ -5,5 +5,6 @@ export abstract class CustomerRepository {
   abstract create(customer: Customer): Promise<void>;
   abstract findById(id: string): Promise<Customer | null>;
   abstract findByEmail(email: string): Promise<Customer | null>;
+  abstract findAll(): Promise<Customer[]>;
   abstract delete(id: string): Promise<void>;
 }

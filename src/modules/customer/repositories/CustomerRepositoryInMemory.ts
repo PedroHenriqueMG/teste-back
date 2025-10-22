@@ -20,6 +20,10 @@ export class CustomerRepositoryInMemory implements CustomerRepository {
     return customer;
   }
 
+  async findAll(): Promise<Customer[]> {
+    return []
+  }
+
   async findById(id: string): Promise<Customer | null> {
     const customer = this.customers.find((customer) => customer.id === id);
 

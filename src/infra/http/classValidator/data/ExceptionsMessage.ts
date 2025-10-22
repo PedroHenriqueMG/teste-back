@@ -6,4 +6,5 @@ export const ExceptionMessage = {
   MinLength: (min: number, property: string) =>
     `O campo ${property} precisa ter ${min} caracteres`,
   IsEnum: (property: any) => `O campo ${property} não é um enum válido`,
+  IsOptional: (property: string) => `O Campo ${property} é opcional`,
 };

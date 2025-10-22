@@ -7,7 +7,8 @@ export const makeCustomer = ({ id, ...override }: Override = {}) => {
     {
       email: 'email@gmail.com',
       name: 'Vitor',
-      password: '123123',
+      document: '123.456.789-01',
+      phone: "12345678901",
       ...override,
     },
     id,

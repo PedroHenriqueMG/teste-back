@@ -11,13 +11,13 @@ export class PrismaCustomerRepository implements CustomerRepository {
   async create(customer: Customer): Promise<void> {
     const userRaw = PrismaCustomerMapper.toPrisma(customer);
 
-    await this.prisma.user.create({
+    await this.prisma.customer.create({
       data: userRaw,
     });
   }
 
   async findByEmail(email: string): Promise<Customer | null> {
-    const customer = await this.prisma.user.findUnique({
+    const customer = await this.prisma.customer.findUnique({
       where: {
         email,
       },
@@ -28,8 +28,14 @@ export class PrismaCustomerRepository implements CustomerRepository {
     return PrismaCustomerMapper.toDomain(customer);
   }
 
+  async findAll(): Promise<Customer[]> {
+    const customers = await this.prisma.customer.findMany();
+
+    return customers.map((customer) => PrismaCustomerMapper.toDomain(customer));
+  }
+
   async findById(id: string): Promise<Customer | null> {
-    const customer = await this.prisma.user.findUnique({
+    const customer = await this.prisma.customer.findUnique({
       where: {
         id,
       },
@@ -43,7 +49,7 @@ export class PrismaCustomerRepository implements CustomerRepository {
   async update(customer: Customer): Promise<void> {
     const data = PrismaCustomerMapper.toPrisma(customer);
 
-    await this.prisma.user.update({
+    await this.prisma.customer.update({
       where: {
         id: customer.id,
       },
@@ -52,7 +58,7 @@ export class PrismaCustomerRepository implements CustomerRepository {
   }
 
   async delete(id: string): Promise<void> {
-    await this.prisma.user.delete({
+    await this.prisma.customer.delete({
       where: {
         id,
       },

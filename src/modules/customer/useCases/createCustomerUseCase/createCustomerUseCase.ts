@@ -9,15 +9,17 @@ import { CreateCustomerBody } from 'src/infra/http/modules/customer/dtos/createC
 export class CreateCustomerUseCase {
   constructor(private customerRepository: CustomerRepository) {}
 
-  async execute({ email, name, password }: CreateCustomerBody) {
-    const customerAlreadyExist = await this.customerRepository.findByEmail(email);
+  async execute({ email, name, document, phone }: CreateCustomerBody) {
+    const customerAlreadyExist =
+      await this.customerRepository.findByEmail(email);
 
     if (customerAlreadyExist) throw new CustomerWithSameEmailException();
 
     const customer = new Customer({
       email,
       name,
-      password: await hash(password, 10),
+      document: await hash(document, 10),
+      phone,
     });
 
     await this.customerRepository.create(customer);

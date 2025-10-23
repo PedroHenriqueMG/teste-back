@@ -79,8 +79,8 @@ export class CustomerController {
 
   @Delete('/:id')
   async deleteCustomer(@Param('id') id: string) {
-    const customer = await this.deleteCustomerUseCase.execute(id);
+    await this.deleteCustomerUseCase.execute(id);
 
-    return CustomerViewModel.toHttp(customer);
+    return CustomerViewModel.toMessage('Cliente deletado com sucesso!');
   }
 }

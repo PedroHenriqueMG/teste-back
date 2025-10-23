@@ -19,4 +19,10 @@ export class CustomerViewModel {
       updatedAt,
     };
   }
+
+  static toMessage(message: string) {
+    return {
+      message,
+    };
+  }
 }

@@ -13,6 +13,6 @@ export class DeleteCustomerUseCase {
 
     await this.customerRepository.delete(id);
 
-    return customer;
+    return;
   }
 }

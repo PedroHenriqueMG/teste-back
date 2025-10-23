@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { CustomerRepository } from '../../repositories/CustomerRepository';
 import { Customer } from '../../entities/Customer';
 import { hash } from 'bcrypt';
-import { CustomerWithSameEmailException } from '../../exceptions/CustomerWithSameEmailException';
+import { CustomerWithSameEmail } from '../../exceptions/CustomerWithSameEmail';
 import { CreateCustomerBody } from 'src/infra/http/modules/customer/dtos/createCustomerBody';
+import { CustomerWithSameDocument } from '../../exceptions/CustomerWithSameDocument';
 
 @Injectable()
 export class CreateCustomerUseCase {
@@ -13,7 +14,10 @@ export class CreateCustomerUseCase {
     const customerAlreadyExist =
       await this.customerRepository.findByEmail(email);
 
-    if (customerAlreadyExist) throw new CustomerWithSameEmailException();
+    if (customerAlreadyExist?.document === document)
+      throw new CustomerWithSameDocument();
+
+    if (customerAlreadyExist) throw new CustomerWithSameEmail();
 
     const customer = new Customer({
       email,

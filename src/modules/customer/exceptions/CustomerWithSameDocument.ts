@@ -1,10 +1,10 @@
 import { HttpStatus } from '@nestjs/common';
 import { AppException } from 'src/exceptions/appException';
 
-export class CustomerWithSameEmailException extends AppException {
+export class CustomerWithSameDocument extends AppException {
   constructor() {
     super({
-      message: 'Email já cadastrado',
+      message: 'Documento já cadastrado',
       status: HttpStatus.CONFLICT,
     });
   }

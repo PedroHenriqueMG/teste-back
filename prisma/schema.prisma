@@ -21,24 +21,26 @@ enum ChargeStatus {
 }
 
 model Customer {
-  id                String       @id
-  name              String
-  document          String       @unique
-  email             String       @unique
-  phone             String
-  createdAt         DateTime
-  updatedAt         DateTime     @updatedAt
-  note              Charge[]
+  id        String   @id
+  name      String
+  document  String   @unique
+  email     String   @unique
+  phone     String
+  createdAt DateTime
+  updatedAt DateTime @updatedAt
+  note      Charge[]
 }
 
 model Charge {
-  id                String       @id
-  custumer          Customer     @relation(fields: [custumer_id], references: [id])
-  custumer_id       String 
-  value             Decimal
-  coin              String
-  paymentType       PaymentType
-  status            ChargeStatus  
-  createdAt         DateTime
-  updatedAt         DateTime     @updatedAt
+  id           String       @id
+  custumer     Customer     @relation(fields: [custumer_id], references: [id])
+  custumer_id  String
+  value        Int
+  coin         String
+  paymentType  PaymentType
+  status       ChargeStatus
+  amountParcel Int?
+  validateDate DateTime?
+  createdAt    DateTime
+  updatedAt    DateTime     @updatedAt
 }

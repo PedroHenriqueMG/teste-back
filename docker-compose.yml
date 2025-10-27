@@ -1,13 +1,39 @@
 version: '3.8'
 
 services:
-  antrol-generate:
+  db:
     image: postgres:alpine
     container_name: desafio1
     environment:
       POSTGRES_USER: docker
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: banco
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U docker -d banco']
+      interval: 15s
+      timeout: 5s
     ports:
       - '5432:5432'
     restart: unless-stopped
+
+  api:
+    container_name: api-payment
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - 8080:8080
+    env_file:
+      - ./.env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
